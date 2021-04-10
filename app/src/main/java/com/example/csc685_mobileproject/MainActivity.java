@@ -10,6 +10,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String ROLE_INTENT_NAME = "com.example.csc685_mobileproject.ROLENAME";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void gotoJobs(View view) {
         Intent intent = new Intent(this, RoleActivity.class);
+        intent.putExtra(ROLE_INTENT_NAME, "Kitchen");
         startActivity(intent);
     }
 }

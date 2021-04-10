@@ -1,5 +1,6 @@
 package com.example.csc685_mobileproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -27,7 +28,11 @@ public class RoleActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        toolBarLayout.setTitle("Kitchen");
+
+        // Get the role from the intent...
+        Intent intent = getIntent();
+        String rolename = intent.getStringExtra(MainActivity.ROLE_INTENT_NAME);
+        toolBarLayout.setTitle(rolename);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
