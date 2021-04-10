@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.view.View;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class RoleActivity extends AppCompatActivity {
 
@@ -43,34 +46,34 @@ public class RoleActivity extends AppCompatActivity {
             }
         });
 
-        initData();
+        initData(rolename);
         mRecyclerView = (RecyclerView) findViewById(R.id.role_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ShiftAdapter(mDataset);
         mRecyclerView.setAdapter(mAdapter);
+
     }
 
 
-    private void initData() {
-        mDataset = new ShiftData[4];
-        mDataset[0] = new ShiftData();
-        mDataset[0].title = "Line Cook";
-        mDataset[0].time = "3:00 - 5:00";
-        mDataset[0].description = "Cook food for the early shift. Make sure everything is ready for guests on time.";
+    private void initData(String role) {
+        try {
+            final JSONObject obj = new JSONObject(getString(R.string.dummy_data_json));
+            final JSONArray shifts = obj.getJSONObject("events")
+                        .getJSONObject("Annual Fundraiser")
+                        .getJSONObject(role)
+                        .getJSONArray("shifts");
 
-        mDataset[1] = new ShiftData();
-        mDataset[1].title = "Line Cook";
-        mDataset[1].time = "5:00 - 7:00";
-        mDataset[1].description = "Cook food for the last part of dinner. Clean up after service is complete.";
+            mDataset = new ShiftData[shifts.length()];
 
-        mDataset[2] = new ShiftData();
-        mDataset[2].title = "Server";
-        mDataset[2].time = "4:00 - 6:00";
-        mDataset[2].description = "Serve the guests and make sure they have what they need. Bring orders to the cook.";
-
-        mDataset[3] = new ShiftData();
-        mDataset[3].title = "Manager";
-        mDataset[3].time = "3:00 - 7:00";
-        mDataset[3].description = "Coordinate kitchen and serving activities. Make sure things run smoothly and solve any problems as they arise.";
+            for (int i=0; i < shifts.length(); i++) {
+                mDataset[i] = new ShiftData();
+                JSONObject data = shifts.getJSONObject(i);
+                mDataset[i].title = data.getString("title");
+                mDataset[i].time = data.getString("time");
+                mDataset[i].description = data.getString("description");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
