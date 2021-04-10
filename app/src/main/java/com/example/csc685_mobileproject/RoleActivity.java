@@ -20,6 +20,9 @@ import org.json.JSONObject;
 
 public class RoleActivity extends AppCompatActivity {
 
+    public static final String ROLE_INTENT_EVENT  = "com.example.csc685_mobileproject.EVENTNAME";
+    public static final String ROLE_INTENT_ROLE = "com.example.csc685_mobileproject.ROLENAME";
+
     protected ShiftData mDataset[];
     protected ShiftAdapter mAdapter;
     protected RecyclerView mRecyclerView;
@@ -34,7 +37,8 @@ public class RoleActivity extends AppCompatActivity {
 
         // Get the role from the intent...
         Intent intent = getIntent();
-        String rolename = intent.getStringExtra(MainActivity.ROLE_INTENT_NAME);
+        String eventname = intent.getStringExtra(ROLE_INTENT_EVENT);
+        String rolename = intent.getStringExtra(ROLE_INTENT_ROLE);
         toolBarLayout.setTitle(rolename);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -46,7 +50,7 @@ public class RoleActivity extends AppCompatActivity {
             }
         });
 
-        initData(rolename);
+        initData(eventname, rolename);
         mRecyclerView = (RecyclerView) findViewById(R.id.role_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ShiftAdapter(mDataset);
@@ -55,11 +59,11 @@ public class RoleActivity extends AppCompatActivity {
     }
 
 
-    private void initData(String role) {
+    private void initData(String event, String role) {
         try {
             final JSONObject obj = new JSONObject(getString(R.string.dummy_data_json));
             final JSONArray shifts = obj.getJSONObject("events")
-                        .getJSONObject("Annual Fundraiser")
+                        .getJSONObject(event)
                         .getJSONObject(role)
                         .getJSONArray("shifts");
 

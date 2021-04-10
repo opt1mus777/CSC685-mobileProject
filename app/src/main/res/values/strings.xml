@@ -37,8 +37,7 @@
                             description: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\"
                         }
                     ]
-                }
-            },
+                },
                 Gate:
                 {
                     title: \"Gate\",
@@ -67,7 +66,7 @@
                         }
                     ]
                 },
-                Kitchen:
+                Cleanup:
                 {
                     title: \"Cleanup\",
                     description: \"Leave no trace!\",
@@ -94,37 +93,8 @@
                             description: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\"
                         }
                     ]
-                },
-                Kitchen:
-                {
-                    title: \"Kitchen\",
-                    description: \"Manage the kitchen and make sure everyone is fed.\",
-                    shifts:
-                    [
-                        {
-                            title: \"Kitchen 1\",
-                            time: \"3:00 - 5:00\",
-                            description: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\"
-                        },
-                        {
-                            title: \"Kitchen 2\",
-                            time: \"3:00 - 5:00\",
-                            description: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\"
-                        },
-                        {
-                            title: \"Kitchen 3\",
-                            time: \"3:00 - 5:00\",
-                            description: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\"
-                        },
-                        {
-                            title: \"Kitchen 4\",
-                            time: \"3:00 - 5:00\",
-                            description: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\"
-                        }
-                    ]
                 }
             }
-
         }
     }
     ]]></string>
