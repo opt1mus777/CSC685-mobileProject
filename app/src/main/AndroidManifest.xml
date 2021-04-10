@@ -10,16 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSC685mobileProject">
         <activity
-            android:name=".RoleActivity"
-            android:label="@string/title_activity_role"
+            android:name=".EventActivity"
+            android:label="@string/title_activity_event"
             android:theme="@style/Theme.CSC685mobileProject.NoActionBar">
-        </activity>
-        <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".RoleActivity"
+            android:label="@string/title_activity_role"
+            android:theme="@style/Theme.CSC685mobileProject.NoActionBar"></activity>
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 
