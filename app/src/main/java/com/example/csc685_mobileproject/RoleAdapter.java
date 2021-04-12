@@ -21,8 +21,6 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public static final String ROLE_INTENT_NAME = "com.example.csc685_mobileproject.ROLENAME";
-
         private TextView title;
         private TextView time;
         private TextView description;
@@ -35,7 +33,8 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), RoleActivity.class);
-                    intent.putExtra(ROLE_INTENT_NAME, "Kitchen");
+                    intent.putExtra(RoleActivity.ROLE_INTENT_EVENT, "Annual Fundraiser");
+                    intent.putExtra(RoleActivity.ROLE_INTENT_ROLE, "Kitchen");
                     v.getContext().startActivity(intent);
                 }
             });
