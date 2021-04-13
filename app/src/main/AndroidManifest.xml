@@ -23,7 +23,12 @@
         <activity
             android:name=".RoleActivity"
             android:label="@string/title_activity_role"
-            android:theme="@style/Theme.CSC685mobileProject.NoActionBar"></activity>
+            android:theme="@style/Theme.CSC685mobileProject.NoActionBar">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".EventActivity" />
+        </activity>
         <activity android:name=".MainActivity">
 
         </activity>
