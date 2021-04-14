@@ -13,12 +13,6 @@
             android:name=".EventActivity"
             android:label="@string/title_activity_event"
             android:theme="@style/Theme.CSC685mobileProject.NoActionBar">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".RoleActivity"
@@ -30,6 +24,11 @@
                 android:value=".EventActivity" />
         </activity>
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
     </application>

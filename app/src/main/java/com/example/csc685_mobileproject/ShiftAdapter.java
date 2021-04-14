@@ -8,10 +8,14 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.csc685_mobileproject.db.AppDatabase;
+import com.example.csc685_mobileproject.db.DatabaseHelper;
 import com.example.csc685_mobileproject.db.ShiftData;
+import com.example.csc685_mobileproject.db.SignupData;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -26,10 +30,29 @@ public class ShiftAdapter extends RecyclerView.Adapter<ShiftAdapter.ViewHolder> 
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView title;
-        private TextView time;
-        private TextView description;
-        private Button signup;
+        protected View view;
+        protected TextView title;
+        protected TextView time;
+        protected TextView description;
+        protected Button signup;
+        protected TextView person;
+        protected String shiftid;
+        protected SignupData signupData;
+
+        public boolean isEnabled() {
+            return signup.getText().equals(view.getResources().getString(R.string.signup_do));
+        }
+
+        public void setEnabled(boolean en) {
+            if (en) {
+                signup.setText(view.getResources().getString(R.string.signup_do));
+                signup.setBackgroundColor(0x4CAF50);
+            }
+            else {
+                signup.setText(view.getResources().getString(R.string.signup_cancel));
+                signup.setBackgroundColor(0xFFFF5722);
+            }
+        }
 
         public ViewHolder(View v) {
             super(v);
@@ -40,30 +63,34 @@ public class ShiftAdapter extends RecyclerView.Adapter<ShiftAdapter.ViewHolder> 
                 }
             });
 
+            view = v;
             title = v.findViewById(R.id.shiftTitle);
             time = v.findViewById(R.id.shiftTime);
             description = v.findViewById(R.id.shiftDescription);
             signup = v.findViewById(R.id.signupButton);
-            signup.setOnClickListener(new View.OnClickListener() {
+            person = v.findViewById(R.id.signupPerson);
+            signup.setOnClickListener((View vv) -> {
+                if (isEnabled()) {
+                    signupData = new SignupData();
+                    signupData.id = UUID.randomUUID().toString();
+                    signupData.name = "Your Name Here";
+                    signupData.shiftid = shiftid;
 
-                @Override
-                public void onClick(View v) {
-                    Snackbar.make(v, "Thanks for volunteering!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    AppDatabase db = DatabaseHelper.getDB(view.getContext());
+                    db.signupDataDao().insertAll(signupData);
+
+                    person.setText(signupData.name);
+                    setEnabled(false);
+                }
+                else {
+                    AppDatabase db = DatabaseHelper.getDB(view.getContext());
+                    db.signupDataDao().delete(signupData);
+                    signupData = null;
+                    person.setText("");
+                    setEnabled(true);
                 }
             });
-        }
 
-        public TextView getTitle() {
-            return title;
-        }
-
-        public TextView getTime() {
-            return time;
-        }
-
-        public TextView getDescription() {
-            return description;
         }
     }
 
@@ -91,13 +118,22 @@ public class ShiftAdapter extends RecyclerView.Adapter<ShiftAdapter.ViewHolder> 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
         //viewHolder.getTitle().setText(mDataSet[position]);
-        viewHolder.getTitle().setText(mDataSet.get(position).title);
-        viewHolder.getTime().setText(mDataSet.get(position).time);
-        viewHolder.getDescription().setText(mDataSet.get(position).description);
-    }
-    // END_INCLUDE(recyclerViewOnBindViewHolder)
+        ShiftData data = mDataSet.get(position);
+        viewHolder.title.setText(data.title);
+        viewHolder.time.setText(data.time);
+        viewHolder.description.setText(data.description);
+        viewHolder.shiftid = data.id;
 
-    // Return the size of your dataset (invoked by the layout manager)
+        AppDatabase db = DatabaseHelper.getDB(viewHolder.view.getContext());
+        List<SignupData> people = db.signupDataDao().getAll(data.id);
+        viewHolder.setEnabled(true);
+        for (SignupData person: people) {
+            viewHolder.signupData = person;
+            viewHolder.person.setText(person.name);
+            viewHolder.setEnabled(false);
+        }
+    }
+
     @Override
     public int getItemCount() {
         return mDataSet.size();

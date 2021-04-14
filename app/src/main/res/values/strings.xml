@@ -3,4 +3,6 @@
     <string name="title_activity_role">Volunteer Shifts</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_event">Volunteer Me</string>
+    <string name="signup_do">SIGNUP</string>
+    <string name="signup_cancel">CANCEL</string>
 </resources>

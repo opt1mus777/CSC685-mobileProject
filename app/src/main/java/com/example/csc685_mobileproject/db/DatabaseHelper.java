@@ -3,14 +3,38 @@ package com.example.csc685_mobileproject.db;
 import android.content.Context;
 import android.provider.ContactsContract;
 
+import androidx.annotation.NonNull;
 import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.UUID;
 
 public class DatabaseHelper {
 
     public static AppDatabase getDB(Context ctx) {
-        return Room.databaseBuilder(ctx, AppDatabase.class, "volunteer-db").allowMainThreadQueries().build();
+        RoomDatabase.Callback cb = new RoomDatabase.Callback() {
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                super.onCreate(db);
+            }
+
+            @Override
+            public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                super.onOpen(db);
+            }
+
+            @Override
+            public void onDestructiveMigration(@NonNull SupportSQLiteDatabase db) {
+                super.onDestructiveMigration(db);
+            }
+        };
+
+        return Room.databaseBuilder(ctx, AppDatabase.class, "volunteer-db")
+                .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
+                .addCallback(cb)
+                .build();
     }
 
     public static void resetDB(Context ctx) {

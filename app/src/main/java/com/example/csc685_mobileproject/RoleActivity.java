@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.csc685_mobileproject.db.AppDatabase;
+import com.example.csc685_mobileproject.db.DatabaseHelper;
 import com.example.csc685_mobileproject.db.ShiftData;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -71,8 +72,7 @@ public class RoleActivity extends AppCompatActivity {
     }
 
     private void initData(String event, String role) {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "volunteer-db").allowMainThreadQueries().build();
+        AppDatabase db = DatabaseHelper.getDB(getApplicationContext());
         mDataset = db.shiftDataDao().getAll(role);
     }
 }
