@@ -8,7 +8,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.csc685_mobileproject.db.ShiftData;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -16,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class ShiftAdapter extends RecyclerView.Adapter<ShiftAdapter.ViewHolder> {
     private static final String TAG = "ShiftAdapter";
 
-    private ShiftData[] mDataSet;
+    private List<ShiftData> mDataSet;
 
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
@@ -69,7 +72,7 @@ public class ShiftAdapter extends RecyclerView.Adapter<ShiftAdapter.ViewHolder> 
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public ShiftAdapter(ShiftData[] dataSet) {
+    public ShiftAdapter(List<ShiftData> dataSet) {
         mDataSet = dataSet;
     }
 
@@ -88,15 +91,15 @@ public class ShiftAdapter extends RecyclerView.Adapter<ShiftAdapter.ViewHolder> 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
         //viewHolder.getTitle().setText(mDataSet[position]);
-        viewHolder.getTitle().setText(mDataSet[position].title);
-        viewHolder.getTime().setText(mDataSet[position].time);
-        viewHolder.getDescription().setText(mDataSet[position].description);
+        viewHolder.getTitle().setText(mDataSet.get(position).title);
+        viewHolder.getTime().setText(mDataSet.get(position).time);
+        viewHolder.getDescription().setText(mDataSet.get(position).description);
     }
     // END_INCLUDE(recyclerViewOnBindViewHolder)
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataSet.length;
+        return mDataSet.size();
     }
 }
