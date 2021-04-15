@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/shiftTitle"
+        android:id="@+id/rowTitle"
         android:layout_width="102dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -22,36 +22,17 @@
         tools:text="Prep Cook" />
 
     <TextView
-        android:id="@+id/shiftDescription"
+        android:id="@+id/rowDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toStartOf="@+id/signupButton"
-        app:layout_constraintStart_toStartOf="@+id/shiftTitle"
-        app:layout_constraintTop_toBottomOf="@+id/shiftTime"
-        tools:text="Cook the food in preparation for the evening dinner and events." />
-
-    <TextView
-        android:id="@+id/shiftTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/shiftTitle"
-        app:layout_constraintTop_toBottomOf="@+id/shiftTitle"
-        tools:text="3:00pm - 5:00pm" />
-
-    <Button
-        android:id="@+id/signupButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="Signup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shiftTitle" />
+        app:layout_constraintStart_toStartOf="@+id/rowTitle"
+        app:layout_constraintTop_toBottomOf="@+id/rowTitle"
+        tools:text="Cook the food in preparation for the evening dinner and events." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
