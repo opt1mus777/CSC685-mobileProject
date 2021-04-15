@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
-
 public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
     private static final String TAG = "RoleAdapter";
 
@@ -22,9 +20,7 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView title;
-        private TextView time;
         private TextView description;
-        private Button signup;
 
         public ViewHolder(View v) {
             super(v);
@@ -34,23 +30,14 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), RoleActivity.class);
                     intent.putExtra(RoleActivity.ROLE_INTENT_EVENT, "Annual Fundraiser");
-                    intent.putExtra(RoleActivity.ROLE_INTENT_ROLE, "Kitchen");
+                    intent.putExtra(RoleActivity.ROLE_INTENT_ROLE, title.getText());
                     v.getContext().startActivity(intent);
                 }
             });
 
-            title = v.findViewById(R.id.shiftTitle);
-            time = v.findViewById(R.id.shiftTime);
-            description = v.findViewById(R.id.shiftDescription);
-            signup = v.findViewById(R.id.signupButton);
-            signup.setOnClickListener(new View.OnClickListener() {
+            title = v.findViewById(R.id.rowTitle);
+            description = v.findViewById(R.id.rowDescription);
 
-                @Override
-                public void onClick(View v) {
-                    Snackbar.make(v, "Thanks for volunteering!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
         }
 
         public TextView getTitle() {
