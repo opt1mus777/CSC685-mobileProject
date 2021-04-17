@@ -10,6 +10,7 @@ import java.util.List;
 @Dao
 public interface RoleDataDao {
 
+    //Get list of roles based on eventid
     @Query("SELECT * FROM roledata WHERE eventid = :eventid")
     List<RoleData> getAll(String eventid);
 

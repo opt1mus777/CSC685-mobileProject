@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.csc685_mobileproject.db.RoleData;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.List;
+
 public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
     private static final String TAG = "RoleAdapter";
 
-    private RoleData[] mDataSet;
+    private List<RoleData> mDataSet;
 
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
@@ -57,7 +59,7 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public RoleAdapter(RoleData[] dataSet) {
+    public RoleAdapter(List<RoleData> dataSet) {
         mDataSet = dataSet;
     }
 
@@ -76,14 +78,14 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
         //viewHolder.getTitle().setText(mDataSet[position]);
-        viewHolder.getTitle().setText(mDataSet[position].title);
-        viewHolder.getDescription().setText(mDataSet[position].description);
+        viewHolder.getTitle().setText(mDataSet.get(position).title);
+        viewHolder.getDescription().setText(mDataSet.get(position).description);
     }
     // END_INCLUDE(recyclerViewOnBindViewHolder)
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataSet.length;
+        return mDataSet.size();
     }
 }

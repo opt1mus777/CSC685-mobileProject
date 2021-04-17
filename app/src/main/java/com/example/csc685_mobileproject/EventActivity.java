@@ -2,6 +2,8 @@ package com.example.csc685_mobileproject;
 
 import android.os.Bundle;
 
+import com.example.csc685_mobileproject.db.AppDatabase;
+import com.example.csc685_mobileproject.db.DatabaseHelper;
 import com.example.csc685_mobileproject.db.RoleData;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -14,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 
+import java.util.List;
+
 public class EventActivity extends AppCompatActivity {
 
-    protected RoleData mDataset[];
+    protected List<RoleData> mDataset;
     protected RoleAdapter mAdapter;
     protected RecyclerView mRecyclerView;
 
@@ -46,19 +50,9 @@ public class EventActivity extends AppCompatActivity {
     }
 
     //update this to roles info
+
     private void initData() {
-        mDataset = new RoleData[3];
-        mDataset[0] = new RoleData();
-        mDataset[0].title = "Kitchen";
-        mDataset[0].description = "Cook food for the early shift. Make sure everything is ready for guests on time.";
-
-        mDataset[1] = new RoleData();
-        mDataset[1].title = "Gate";
-        mDataset[1].description = "Cook food for the last part of dinner. Clean up after service is complete.";
-
-        mDataset[2] = new RoleData();
-        mDataset[2].title = "Cleanup";
-        mDataset[2].description = "Serve the guests and make sure they have what they need. Bring orders to the cook.";
-
-        }
+        AppDatabase db = DatabaseHelper.getDB(getApplicationContext());
+        mDataset = db.roleDataDao().getAll("Annual Fundraiser");
+    }
 }
