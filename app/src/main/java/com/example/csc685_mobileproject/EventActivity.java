@@ -2,6 +2,7 @@ package com.example.csc685_mobileproject;
 
 import android.os.Bundle;
 
+import com.example.csc685_mobileproject.db.RoleData;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;

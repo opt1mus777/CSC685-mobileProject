@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.csc685_mobileproject.db.RoleData;
+import com.google.android.material.snackbar.Snackbar;
+
 public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
     private static final String TAG = "RoleAdapter";
 
