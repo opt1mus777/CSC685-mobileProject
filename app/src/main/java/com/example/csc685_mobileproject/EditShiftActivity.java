@@ -36,6 +36,8 @@ public class EditShiftActivity extends AppCompatActivity {
         AppDatabase db = DatabaseHelper.getDB(getApplicationContext());
         ShiftData data = db.shiftDataDao().get(shiftid);
 
+        setTitle(String.format("Edit %s Shift", data.title));
+
         titleEdit = findViewById(R.id.shiftTitleEdit);
         timeEdit = findViewById(R.id.shiftTimeEdit);
         descriptionEdit = findViewById(R.id.shiftTextEdit);
