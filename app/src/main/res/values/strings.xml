@@ -5,4 +5,23 @@
     <string name="title_activity_event">Volunteer Me</string>
     <string name="signup_do">SIGNUP</string>
     <string name="signup_cancel">CANCEL</string>
+    <string name="initial_data">
+        delete from SignupData;
+        delete from ShiftData;
+        delete from RoleData;
+        delete from EventData;
+        insert into EventData values ( \"Annual Fundraiser\", \"Annual Fundraiser\", \"Our big annual fundraiser.\" );
+        insert into RoleData values ( \"Kitchen\", \"Kitchen\", \"Work in the kitchen so guests are fed.\", \"Annual Fundraiser\" );
+        insert into RoleData values ( \"Gate\", \"Gate\", \"Work at the gate to greet guests and get them oriented.\", \"Annual Fundraiser\" );
+        insert into RoleData values ( \"Cleanup\", \"Cleanup\", \"Clean up before, during and after the event. Leave no trace!\", \"Annual Fundraiser\" );
+        insert into ShiftData values ( \"k-shift-1\", \"Kitchen Manager\", \"4:00 - 7:00\", \"Manage the cook and serving staff.\", \"Kitchen\" );
+        insert into ShiftData values ( \"k-shift-2\", \"Cook\", \"4:00 - 7:00\", \"Prepare food and respond to orders.\", \"Kitchen\" );
+        insert into ShiftData values ( \"k-shift-3\", \"Server\", \"5:00 - 7:00\", \"Serve food to guests and help them find a table.\", \"Kitchen\" );
+        insert into ShiftData values ( \"g-shift-1\", \"Ticket Taker\", \"Noon - 5:00\", \"Take tickets and give people wristbands.\", \"Gate\" );
+        insert into ShiftData values ( \"g-shift-2\", \"Greeter\", \"Noon - 5:00\", \"Greet guests and help them find their place.\", \"Gate\" );
+        insert into ShiftData values ( \"c-shift-1\", \"Recycling\", \"9:00am - Noon\", \"Take out recycling.\", \"Cleanup\" );
+        insert into ShiftData values ( \"c-shift-2\", \"Recycling\", \"Noon - 3:00\", \"Take out recycling.\", \"Cleanup\" );
+        insert into ShiftData values ( \"c-shift-3\", \"Trash\", \"9:00am - Noon\", \"Take out trash\", \"Cleanup\" );
+        insert into ShiftData values ( \"c-shift-4\", \"Trash\", \"Noon - 3:00\", \"Take out trash\", \"Cleanup\" );
+    </string>
 </resources>

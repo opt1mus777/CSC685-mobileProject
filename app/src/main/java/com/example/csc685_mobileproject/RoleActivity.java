@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class RoleActivity extends AppCompatActivity {
 
@@ -35,6 +36,9 @@ public class RoleActivity extends AppCompatActivity {
     protected List<ShiftData> mDataset;
     protected ShiftAdapter mAdapter;
     protected RecyclerView mRecyclerView;
+
+    private String eventName;
+    private String roleName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,29 +54,48 @@ public class RoleActivity extends AppCompatActivity {
 
         // Get the role from the intent...
         Intent intent = getIntent();
-        String eventname = intent.getStringExtra(ROLE_INTENT_EVENT);
-        String rolename = intent.getStringExtra(ROLE_INTENT_ROLE);
-        toolBarLayout.setTitle(rolename);
+        eventName = intent.getStringExtra(ROLE_INTENT_EVENT);
+        roleName = intent.getStringExtra(ROLE_INTENT_ROLE);
+        toolBarLayout.setTitle(roleName);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                ShiftData newshift = new ShiftData();
+                newshift.id = UUID.randomUUID().toString();
+                newshift.title = "New Shift";
+                newshift.time = "";
+                newshift.description = "";
+                newshift.roleid = roleName;
+                AppDatabase db = DatabaseHelper.getDB(view.getContext());
+                db.shiftDataDao().insertAll(newshift);
+                Intent intent = new Intent(view.getContext(), EditShiftActivity.class);
+                intent.putExtra(EditShiftActivity.EDIT_SHIFT_INTENT_ID, newshift.id);
+                view.getContext().startActivity(intent);
             }
         });
 
-        initData(eventname, rolename);
+        initData();
         mRecyclerView = (RecyclerView) findViewById(R.id.role_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ShiftAdapter(mDataset);
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
-    private void initData(String event, String role) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void initData() {
         AppDatabase db = DatabaseHelper.getDB(getApplicationContext());
-        mDataset = db.shiftDataDao().getAll(role);
+        if (mDataset == null) {
+            mDataset = new ArrayList<ShiftData>();
+        }
+        mDataset.clear();
+        mDataset.addAll(db.shiftDataDao().getAll(roleName));
     }
 }

@@ -1,5 +1,6 @@
 package com.example.csc685_mobileproject;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,9 @@ public class ShiftAdapter extends RecyclerView.Adapter<ShiftAdapter.ViewHolder> 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), EditShiftActivity.class);
+                    intent.putExtra(EditShiftActivity.EDIT_SHIFT_INTENT_ID, shiftid);
+                    v.getContext().startActivity(intent);
                 }
             });
 
