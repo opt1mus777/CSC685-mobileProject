@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -81,6 +83,28 @@ public class RoleActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ShiftAdapter(mDataset);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_role, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                // TODO: Delete the role. This cannot be done if there are shifts in it.
+                return true;
+
+            case R.id.action_edit:
+                // TODO: Launch the role editor activity.
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
