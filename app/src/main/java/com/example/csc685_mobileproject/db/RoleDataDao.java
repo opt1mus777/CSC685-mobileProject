@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -18,7 +19,10 @@ public interface RoleDataDao {
     RoleData get(String id);
 
     @Insert
-    void insertAll(RoleData... roles);
+    void insertAll(RoleData... role);
+
+    @Update
+    void update(RoleData role);
 
     @Delete
     void delete(RoleData role);

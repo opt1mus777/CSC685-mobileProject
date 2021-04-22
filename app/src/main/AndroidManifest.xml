@@ -11,6 +11,8 @@
         android:theme="@style/Theme.CSC685mobileProject">
         <activity android:name=".EditShiftActivity">
         </activity>
+        <activity android:name=".EditRoleActivity">
+        </activity>
         <activity
             android:name=".EventActivity"
             android:label="@string/title_activity_event"

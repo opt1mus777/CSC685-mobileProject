@@ -1,20 +1,19 @@
 package com.example.csc685_mobileproject;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.csc685_mobileproject.db.AppDatabase;
-import com.example.csc685_mobileproject.db.DatabaseHelper;
-import com.example.csc685_mobileproject.db.RoleData;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
+import com.example.csc685_mobileproject.db.AppDatabase;
+import com.example.csc685_mobileproject.db.DatabaseHelper;
+import com.example.csc685_mobileproject.db.RoleData;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -27,6 +26,7 @@ public class EventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -37,8 +37,9 @@ public class EventActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(view.getContext(), EditRoleActivity.class);
+                intent.putExtra(EditRoleActivity.EDIT_ROLE_INTENT_ID, "Annual Fundraiser");
+                view.getContext().startActivity(intent);
             }
         });
 
