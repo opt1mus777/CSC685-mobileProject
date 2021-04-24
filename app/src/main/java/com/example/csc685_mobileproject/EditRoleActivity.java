@@ -1,6 +1,7 @@
 package com.example.csc685_mobileproject;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.csc685_mobileproject.db.AppDatabase;
 import com.example.csc685_mobileproject.db.DatabaseHelper;
 import com.example.csc685_mobileproject.db.RoleData;
+import com.google.android.material.snackbar.Snackbar;
 
 public class EditRoleActivity extends AppCompatActivity {
 
@@ -44,9 +46,13 @@ public class EditRoleActivity extends AppCompatActivity {
         descriptionEdit.setText(data.description);
 
         deleteButton.setOnClickListener((View v) -> {
-            //do I need try/catch to stop role delete?
-            db.roleDataDao().delete(data);
-            finish();
+            try {
+                db.roleDataDao().delete(data);
+                finish();
+            } catch (SQLiteConstraintException ex) {
+                Snackbar.make(v, "You can't delete a role with a shift!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
 
         });
 

@@ -26,6 +26,7 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
 
         private TextView title;
         private TextView description;
+        protected String id;
 
         public ViewHolder(View v) {
             super(v);
@@ -35,7 +36,7 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), RoleActivity.class);
                     intent.putExtra(RoleActivity.ROLE_INTENT_EVENT, "Annual Fundraiser");
-                    intent.putExtra(RoleActivity.ROLE_INTENT_ROLE, title.getText());
+                    intent.putExtra(RoleActivity.ROLE_INTENT_ROLE, id);
                     v.getContext().startActivity(intent);
                 }
             });
@@ -80,6 +81,7 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder>{
         //viewHolder.getTitle().setText(mDataSet[position]);
         viewHolder.getTitle().setText(mDataSet.get(position).title);
         viewHolder.getDescription().setText(mDataSet.get(position).description);
+        viewHolder.id = mDataSet.get(position).id;
     }
     // END_INCLUDE(recyclerViewOnBindViewHolder)
 

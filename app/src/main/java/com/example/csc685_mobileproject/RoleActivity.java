@@ -1,10 +1,12 @@
 package com.example.csc685_mobileproject;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 
 import com.example.csc685_mobileproject.db.AppDatabase;
 import com.example.csc685_mobileproject.db.DatabaseHelper;
+import com.example.csc685_mobileproject.db.RoleData;
 import com.example.csc685_mobileproject.db.ShiftData;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -93,13 +95,25 @@ public class RoleActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        AppDatabase db = DatabaseHelper.getDB(getApplicationContext());
         switch (item.getItemId()) {
             case R.id.action_delete:
-                // TODO: Delete the role. This cannot be done if there are shifts in it.
+                RoleData role = db.roleDataDao().get(roleName);
+                System.out.println("Hello" + roleName);
+                try{
+                    db.roleDataDao().delete(role);
+                    finish();
+                }catch(SQLiteConstraintException ex) {
+                Snackbar.make(findViewById(R.id.toolbar), "You can't delete a shift with signups!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+
                 return true;
 
             case R.id.action_edit:
-                // TODO: Launch the role editor activity.
+                // create intent to fill in role editor
+                // tell role editor which id to edit
+                // : Launch the role editor activity.
                 return true;
 
             default:

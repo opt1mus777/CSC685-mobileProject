@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.csc685_mobileproject.db.AppDatabase;
 import com.example.csc685_mobileproject.db.DatabaseHelper;
 import com.example.csc685_mobileproject.db.RoleData;
+import com.example.csc685_mobileproject.db.ShiftData;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class EventActivity extends AppCompatActivity {
 
@@ -37,8 +40,15 @@ public class EventActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RoleData newrole = new RoleData();
+                newrole.id = UUID.randomUUID().toString();
+                newrole.title = "New Role";
+                newrole.description = "";
+                newrole.eventid = "Annual Fundraiser";
+                AppDatabase db = DatabaseHelper.getDB(view.getContext());
+                db.roleDataDao().insertAll(newrole);
                 Intent intent = new Intent(view.getContext(), EditRoleActivity.class);
-                intent.putExtra(EditRoleActivity.EDIT_ROLE_INTENT_ID, "Annual Fundraiser");
+                intent.putExtra(EditRoleActivity.EDIT_ROLE_INTENT_ID, newrole.id);
                 view.getContext().startActivity(intent);
             }
         });
@@ -51,9 +61,19 @@ public class EventActivity extends AppCompatActivity {
     }
 
     //update this to roles info
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+        mAdapter.notifyDataSetChanged();
+    }
 
     private void initData() {
         AppDatabase db = DatabaseHelper.getDB(getApplicationContext());
-        mDataset = db.roleDataDao().getAll("Annual Fundraiser");
+        if (mDataset == null) {
+            mDataset = new ArrayList<RoleData>();
+        }
+        mDataset.clear();
+        mDataset.addAll(db.roleDataDao().getAll("Annual Fundraiser"));
     }
 }
