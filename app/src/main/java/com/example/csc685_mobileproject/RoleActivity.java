@@ -39,6 +39,7 @@ public class RoleActivity extends AppCompatActivity {
 
     private String eventName;
     private String roleID;
+    private CollapsingToolbarLayout toolBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class RoleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_role);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
         // showing the back button in action bar
         ActionBar actionBar = getSupportActionBar();
@@ -126,6 +127,9 @@ public class RoleActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        AppDatabase db = DatabaseHelper.getDB(this);
+        RoleData role = db.roleDataDao().get(roleID);
+        toolBarLayout.setTitle(role.title);
         initData();
         mAdapter.notifyDataSetChanged();
     }
