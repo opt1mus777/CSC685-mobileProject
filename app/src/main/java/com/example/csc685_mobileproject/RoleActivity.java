@@ -109,7 +109,12 @@ public class RoleActivity extends AppCompatActivity {
 
             case R.id.action_edit:
                 // create intent to fill in role editor
+                Intent intent = new Intent(mRecyclerView.getContext(), EditRoleActivity.class);
                 // tell role editor which id to edit
+                intent.putExtra(EditRoleActivity.EDIT_ROLE_INTENT_ID, roleID);
+                mRecyclerView.getContext().startActivity(intent);
+
+
                 // : Launch the role editor activity.
                 return true;
 
