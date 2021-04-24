@@ -14,7 +14,7 @@ public interface SignupDataDao {
     List<SignupData> getAll(String shiftid);
 
     @Query("SELECT * FROM shiftdata WHERE id = :id")
-    SignupData get(String id);
+    ShiftData get(String id);
 
     @Insert
     void insertAll(SignupData... signups);

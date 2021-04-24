@@ -17,17 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -42,7 +38,7 @@ public class RoleActivity extends AppCompatActivity {
     protected RecyclerView mRecyclerView;
 
     private String eventName;
-    private String roleName;
+    private String roleID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +55,10 @@ public class RoleActivity extends AppCompatActivity {
         // Get the role from the intent...
         Intent intent = getIntent();
         eventName = intent.getStringExtra(ROLE_INTENT_EVENT);
-        roleName = intent.getStringExtra(ROLE_INTENT_ROLE);
-        toolBarLayout.setTitle(roleName);
+        roleID = intent.getStringExtra(ROLE_INTENT_ROLE);
+        AppDatabase db = DatabaseHelper.getDB(this);
+        RoleData role = db.roleDataDao().get(roleID);
+        toolBarLayout.setTitle(role.title);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +69,7 @@ public class RoleActivity extends AppCompatActivity {
                 newshift.title = "New Shift";
                 newshift.time = "";
                 newshift.description = "";
-                newshift.roleid = roleName;
+                newshift.roleid = roleID;
                 AppDatabase db = DatabaseHelper.getDB(view.getContext());
                 db.shiftDataDao().insertAll(newshift);
                 Intent intent = new Intent(view.getContext(), EditShiftActivity.class);
@@ -98,8 +96,7 @@ public class RoleActivity extends AppCompatActivity {
         AppDatabase db = DatabaseHelper.getDB(getApplicationContext());
         switch (item.getItemId()) {
             case R.id.action_delete:
-                RoleData role = db.roleDataDao().get(roleName);
-                System.out.println("Hello" + roleName);
+                RoleData role = db.roleDataDao().get(roleID);
                 try{
                     db.roleDataDao().delete(role);
                     finish();
@@ -134,6 +131,6 @@ public class RoleActivity extends AppCompatActivity {
             mDataset = new ArrayList<ShiftData>();
         }
         mDataset.clear();
-        mDataset.addAll(db.shiftDataDao().getAll(roleName));
+        mDataset.addAll(db.shiftDataDao().getAll(roleID));
     }
 }
