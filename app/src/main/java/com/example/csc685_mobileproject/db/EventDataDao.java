@@ -12,6 +12,9 @@ public interface EventDataDao {
     @Query("SELECT * FROM eventdata")
     List<EventData> getAll();
 
+    @Query("SELECT * FROM eventdata where id = :id")
+    EventData get(String id);
+
     @Insert
     void insertAll(EventData... roles);
 

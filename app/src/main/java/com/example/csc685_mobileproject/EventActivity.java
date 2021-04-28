@@ -3,6 +3,7 @@ package com.example.csc685_mobileproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.csc685_mobileproject.db.AppDatabase;
 import com.example.csc685_mobileproject.db.DatabaseHelper;
+import com.example.csc685_mobileproject.db.EventData;
 import com.example.csc685_mobileproject.db.RoleData;
 import com.example.csc685_mobileproject.db.ShiftData;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -25,6 +27,7 @@ public class EventActivity extends AppCompatActivity {
     protected List<RoleData> mDataset;
     protected RoleAdapter mAdapter;
     protected RecyclerView mRecyclerView;
+    protected TextView description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,8 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
+        description = findViewById(R.id.event_description);
+
         initData();
         mRecyclerView = (RecyclerView) findViewById(R.id.event_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -73,6 +78,9 @@ public class EventActivity extends AppCompatActivity {
         if (mDataset == null) {
             mDataset = new ArrayList<RoleData>();
         }
+        EventData ev = db.eventDataDao().get("Annual Fundraiser");
+        description.setText(ev.description);
+
         mDataset.clear();
         mDataset.addAll(db.roleDataDao().getAll("Annual Fundraiser"));
     }

@@ -1,6 +1,7 @@
 package com.example.csc685_mobileproject.db;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,16 @@ public class DatabaseHelper {
             @Override
             public void onOpen(@NonNull SupportSQLiteDatabase db) {
                 super.onOpen(db);
+                Cursor got = db.query("select count(*) from EventData");
+                try {
+                    got.moveToFirst();
+                    if (got.getInt(0) == 0) {
+                        throw new Exception("Oops!");
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    resetDB(db, ctx);
+                }
             }
 
             @Override
@@ -33,7 +44,7 @@ public class DatabaseHelper {
             }
         };
 
-        return Room.databaseBuilder(ctx, AppDatabase.class, "volunteer-db")
+        return Room.databaseBuilder(ctx, AppDatabase.class, "volunteer-db-v2")
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .addCallback(cb)
